@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rey Beisbol - Live 🔴</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <link rel="icon" href="ReyBeisbol.png">
+
+
+
+</head>
+<body style="background-color: #5C7AFF">
+    <video id="player" playsinline controls>
+    </video>
+
+    <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const source = `http://streaming.local/hls/stream.m3u8`;
+            const video = document.querySelector('#player');
+
+            const player = new Plyr(video, {autoplay: true, controls: ['play-large', 'play', 'mute', 'volume', 'settings', 'pip', 'airplay', 'fullscreen']});
+
+            if (!Hls.isSupported()) {
+                video.src = source;
+            } else {
+                const hls = new Hls();
+                hls.loadSource(source);
+                hls.attachMedia(video);
+                window.hls = hls;
+            }
+
+            window.player = player;
+        });
+    </script>
+</body>
+</html>
